@@ -3,6 +3,7 @@
   "description": "GitHub Action that validates whether specified files exist in your repository",
   "version": "0.0.8",
   "author": "chrisreddington",
+  "type": "module",
   "private": true,
   "homepage": "https://github.com/chrisreddington/validate-file-exists",
   "repository": {
@@ -23,7 +24,7 @@
     ".": "./dist/index.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "bundle": "npm run format:write && npm run package",
@@ -33,7 +34,7 @@
     "format:check": "npx prettier --check .",
     "lint": "npx eslint . -c ./.github/linters/eslint.config.mjs",
     "local-action": "npx local-action . src/main.ts .env",
-    "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "package": "npx rimraf ./dist && npx rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
     "package:watch": "npm run package -- --watch",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -41,26 +42,29 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^2.0.2"
+    "@actions/core": "^3.0.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.3",
-    "@eslint/js": "^9.39.2",
-    "@github/local-action": "^6.0.2",
-    "@types/node": "^25.0.9",
-    "@typescript-eslint/eslint-plugin": "^8.53.0",
-    "@typescript-eslint/parser": "^8.31.1",
-    "@vercel/ncc": "^0.38.4",
-    "@vitest/coverage-v8": "^4.0.17",
-    "eslint": "^9.39.2",
-    "eslint-plugin-jsonc": "^2.21.0",
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^10.0.1",
+    "@github/local-action": "^7.0.0",
+    "@types/node": "^25.6.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.1",
+    "@typescript-eslint/parser": "^8.56.0",
+    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@vitest/coverage-v8": "^4.1.5",
+    "eslint": "^10.3.0",
+    "eslint-plugin-jsonc": "^3.1.2",
     "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-vitest": "^0.5.4",
-    "globals": "^16.5.0",
+    "@vitest/eslint-plugin": "^1.6.16",
+    "globals": "^17.6.0",
     "make-coverage-badge": "^1.2.0",
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.3",
     "prettier-eslint": "^16.4.2",
-    "typescript": "^5.9.3",
+    "rollup": "^4.60.2",
+    "typescript": "^6.0.3",
     "vitest": "^4.0.10"
   },
   "overrides": {
